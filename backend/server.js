@@ -8,8 +8,44 @@ const cors = require("cors");
 
 const path = require("path");
 
+const bcrypt = require("bcryptjs");
+
+const User = require("./models/User");
+
 const app = express();
 
+async function createAdmin() {
+
+    try {
+
+        const adminExists = await User.findOne({
+            email: "admin@gmail.com"
+        });
+
+        if (!adminExists) {
+
+            const hashedPassword =
+                await bcrypt.hash("admin123", 10);
+
+            await User.create({
+
+                name: "Admin",
+
+                email: "admin@gmail.com",
+
+                password: hashedPassword,
+
+                role: "admin"
+            });
+
+            console.log("Default admin created");
+        }
+
+    } catch (err) {
+
+        console.log(err);
+    }
+}
 
 // ================= MIDDLEWARE =================
 
@@ -52,6 +88,8 @@ mongoose.connect(process.env.MONGO_URI)
 .then(() => {
 
     console.log("MongoDB Connected");
+
+    createAdmin();
 
     app.listen(process.env.PORT, () => {
 
