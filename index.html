@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Center container */
+        .login-container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #3b82f6, #1e293b);
+        }
+
+        /* Login box */
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 320px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Inputs */
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            display: block;
+        }
+
+        .login-box input:focus {
+            outline: none;
+            border: 1px solid #3b82f6;
+        }
+
+        /* Button */
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: #3b82f6;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .login-box button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <input type="email" id="email" placeholder="Enter Email">
+
+        <input type="password" id="password" placeholder="Enter Password">
+
+        <button onclick="login()">Login</button>
+
+        <p style="text-align:center; margin-top:15px;">
+
+            Don't have an account?
+
+            <a href="register.html">Register</a>
+
+        </p>
+    </div>
+</div>
+
+<script>
+
+        async function login() {
+
+        let email = document.getElementById("email").value;
+
+        let password = document.getElementById("password").value;
+
+        // Validation
+        if (!email || !password) {
+
+            alert("Please fill all fields");
+
+            return;
+        }
+
+        try {
+
+            const res = await fetch(
+                "http://localhost:5000/api/auth/login",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        email,
+                        password
+                    })
+                }
+            );
+
+            const data = await res.json();
+
+            console.log(data);
+
+            // Invalid login
+            if (data.message) {
+
+                alert(data.message);
+
+                return;
+            }
+
+            // Save login data
+            localStorage.setItem("token", data.token);
+
+            localStorage.setItem("role", data.role);
+
+            localStorage.setItem("name", data.name);
+
+            localStorage.setItem("userId", data.userId);
+
+            alert("Login Successful!");
+
+            // Redirect by role
+            if (data.role === "admin") {
+
+                window.location.href = "admin.html";
+
+            } else {
+
+                window.location.href = "dashboard.html";
+            }
+
+        } catch (err) {
+
+            console.log(err);
+
+            alert("Server error");
+
+        }
+    }
+</script>
+
+</body>
+</html>

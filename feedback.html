@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Center container */
+        .feedback-container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #22c55e, #1e293b);
+        }
+
+        /* Feedback box */
+        .feedback-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 350px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin: 0 auto;
+        }
+
+        .feedback-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Inputs */
+        .feedback-box input,
+        .feedback-box textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            display: block;
+        }
+
+        .feedback-box textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .feedback-box input:focus,
+        .feedback-box textarea:focus {
+            outline: none;
+            border: 1px solid #22c55e;
+        }
+
+        /* Button */
+        .feedback-box button {
+            width: 100%;
+            padding: 12px;
+            background: #22c55e;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .feedback-box button:hover {
+            background: #16a34a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="feedback-container">
+    <div class="feedback-box">
+        <h2>Submit Feedback</h2>
+
+        <input type="number" min="1" max="5" placeholder="Rating (1-5)">
+        <input placeholder="Complaint ID">
+
+        <textarea placeholder="Write your feedback..."></textarea>
+
+        <button>Submit Feedback</button>
+    </div>
+</div>
+
+</body>
+</html>

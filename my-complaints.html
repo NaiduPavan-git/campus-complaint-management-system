@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Complaints</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f4f6f9;
+        }
+
+        .main { display: flex; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .sidebar ul li:hover,
+        .sidebar ul .active {
+            background: #3b82f6;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .topbar {
+            background: white;
+            padding: 15px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background: #3b82f6;
+            color: white;
+            text-align: left;
+        }
+
+        .table th, .table td {
+            padding: 15px;
+        }
+
+        .table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        /* Status */
+        .status-pending {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        .status-resolved {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .status-progress {
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        /* Empty message */
+        .empty {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="main">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>ComplaintSystem</h2>
+        <ul>
+            <li onclick="location.href='dashboard.html'">Dashboard</li>
+            <li onclick="location.href='complaint.html'">Submit Complaint</li>
+            <li class="active">My Complaints</li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <div class="topbar">My Complaints</div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Complaint ID</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>File</th>   <!-- ✅ ADD THIS -->
+                    <th>Days</th>
+                </tr>
+                </thead>
+
+            <tbody id="complaintsTable"></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<!-- 🔥 SCRIPT TO LOAD DATA -->
+<script>
+
+async function loadComplaints() {
+
+    try {
+
+        const res = await fetch(
+            "http://localhost:5000/api/complaints"
+        );
+
+        const complaints = await res.json();
+
+        console.log("All complaints:", complaints);
+
+        // Current logged-in user
+        const currentUser =
+            localStorage.getItem("userId");
+
+        console.log("Current User:", currentUser);
+
+        // Filter only this user's complaints
+        const filteredComplaints =
+            complaints.filter(
+                c =>
+                    String(c.userId).trim() ===
+                    String(currentUser).trim()
+            );
+            console.log(filteredComplaints);
+
+        console.log(
+            "Filtered:",
+            filteredComplaints
+        );
+
+        let table =
+            document.getElementById("complaintsTable");
+
+        table.innerHTML = "";
+
+        filteredComplaints.forEach((c, index) => {
+
+            let fileHTML = "No File";
+
+            if (c.file) {
+
+                fileHTML = `
+                    <img 
+                        src="http://localhost:5000/uploads/${c.file}" 
+                        width="80"
+                    >
+                `;
+            }
+
+            table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    CMP-${index + 1}
+                </td>
+
+                <td>
+                    ${c.title || "No Title"}
+                </td>
+
+                <td class="
+                    ${
+                        c.status === "Pending"
+                        ? "status-pending"
+
+                        : c.status === "In Progress"
+                        ? "status-progress"
+
+                        : "status-resolved"
+                    }
+                ">
+                    ${c.status}
+                </td>
+
+                <td>
+                    ${fileHTML}
+                </td>
+
+                <td>
+                    -
+                </td>
+
+            </tr>
+            `;
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadComplaints
+);
+
+</script>
+<script src="auth-check.js"></script>
+
+<script>
+checkUserAuth();
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f4f6f9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="main">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>ComplaintSystem</h2>
+        <ul>
+            <li class="active">Dashboard</li>
+            <li onclick="goToComplaint()">Submit Complaint</li>
+            <li onclick="goToMyComplaints()">My Complaints</li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <div class="topbar">
+
+            Welcome,
+            <span id="username"></span>
+
+            <button
+                onclick="logout()"
+                style="
+                    float:right;
+                    background:red;
+                    padding:8px 15px;
+                    border:none;
+                    border-radius:6px;
+                    color:white;
+                    cursor:pointer;
+                "
+            >
+                Logout
+            </button>
+
+        </div>
+        <div class="container-box">
+
+            <!-- 🔥 FIXED CARDS -->
+            <div class="cards">
+
+                <div class="card blue">
+                    <h2 id="totalCount">0</h2>
+                    <p>Total Complaints</p>
+                </div>
+
+                <div class="card orange">
+                    <h2 id="pendingCount">0</h2>
+                    <p>Pending</p>
+                </div>
+
+                <div class="card blue">
+                    <h2 id="progressCount">0</h2>
+                    <p>In Progress</p>
+                </div>
+
+                <div class="card green">
+                    <h2 id="resolvedCount">0</h2>
+                    <p>Resolved</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Existing JS -->
+<script src="script.js"></script>
+
+<!-- 🔥 Dashboard Logic -->
+<script>
+async function loadDashboard() {
+
+    const res = await fetch("http://localhost:5000/api/complaints");
+    const data = await res.json();
+
+    let total = data.length;
+    let pending = data.filter(c => c.status === "Pending").length;
+    let progress = data.filter(c => c.status === "In Progress").length;
+    let resolved = data.filter(c => c.status === "Resolved").length;
+
+    document.getElementById("totalCount").innerText = total;
+    document.getElementById("pendingCount").innerText = pending;
+    document.getElementById("progressCount").innerText = progress;
+    document.getElementById("resolvedCount").innerText = resolved;
+}
+
+// Initial load
+loadDashboard();
+
+// Auto refresh every 3 sec
+setInterval(loadDashboard, 3000);
+</script>
+
+<script src="auth-check.js"></script>
+
+<script>
+checkUserAuth();
+</script>
+<script>
+
+document.getElementById("username").innerText =
+    localStorage.getItem("name");
+
+</script>
+
+</body>
+</html>

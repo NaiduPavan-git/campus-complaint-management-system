@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Complaints</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="main">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+
+        <ul>
+            <li onclick="location.href='admin.html'">
+                Dashboard
+            </li>
+
+            <li class="active">
+                Complaints
+            </li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- Topbar -->
+        <div class="topbar">
+
+            Manage Complaints
+
+            <button
+                onclick="logout()"
+                style="
+                    float:right;
+                    background:red;
+                    padding:8px 15px;
+                    border:none;
+                    border-radius:6px;
+                    color:white;
+                    cursor:pointer;
+                "
+            >
+                Logout
+            </button>
+
+        </div>
+
+        <div class="container-box">
+
+            <!-- Search + Filter -->
+            <div
+                style="
+                    display:flex;
+                    gap:15px;
+                    margin-bottom:20px;
+                "
+            >
+
+                <!-- Search -->
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search complaints..."
+                    onkeyup="loadComplaints()"
+                    style="
+                        padding:10px;
+                        width:250px;
+                        border-radius:8px;
+                        border:1px solid #ccc;
+                    "
+                >
+
+                <!-- Filter -->
+                <select
+                    id="statusFilter"
+                    onchange="loadComplaints()"
+                    style="
+                        padding:10px;
+                        border-radius:8px;
+                        border:1px solid #ccc;
+                    "
+                >
+
+                    <option value="">
+                        All Status
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                    <option value="In Progress">
+                        In Progress
+                    </option>
+
+                    <option value="Resolved">
+                        Resolved
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Complaints Table -->
+            <table class="table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Title</th>
+
+                        <th>Status</th>
+
+                        <th>File</th>
+
+                        <th>Details</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="adminTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Main Script -->
+<script>
+
+async function loadComplaints() {
+
+    try {
+
+        const res = await fetch(
+            "http://localhost:5000/api/complaints"
+        );
+
+        const complaints = await res.json();
+
+
+        // Search text
+        const search =
+            document.getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+        // Filter value
+        const statusFilter =
+            document.getElementById("statusFilter")
+            .value;
+
+        // Filter complaints
+        const filteredComplaints =
+            complaints.filter(c => {
+
+                const matchesSearch =
+
+                    c.title &&
+                    c.title.toLowerCase()
+                    .includes(search);
+
+                const matchesStatus =
+
+                    statusFilter === "" ||
+                    c.status === statusFilter;
+
+                return (
+                    matchesSearch &&
+                    matchesStatus
+                );
+            });
+        window.allComplaints = filteredComplaints;
+
+        let table =
+            document.getElementById("adminTable");
+
+        table.innerHTML = "";
+
+        // Render rows
+        filteredComplaints.forEach((c, index) => {
+
+            let fileHTML = "No File";
+
+            if (c.file) {
+
+                fileHTML = `
+                    <img
+                        src="http://localhost:5000/uploads/${c.file}"
+                        width="60"
+                        style="border-radius:6px;"
+                    >
+                `;
+            }
+
+            table.innerHTML += `
+
+            <tr>
+
+                <!-- Complaint ID -->
+                <td>
+                    CMP-${c._id.slice(-4)}
+                </td>
+
+                <!-- Title -->
+                <td>
+                    ${c.title || "No Title"}
+                </td>
+
+                <!-- Status -->
+                <td>
+                    ${c.status}
+                </td>
+
+                <!-- File -->
+                <td>
+                    ${fileHTML}
+                </td>
+
+                <!-- Details -->
+                <td>
+
+                    <button
+                        onclick="viewComplaint(${index})"
+                    >
+                        View
+                    </button>
+
+                </td>
+
+                <!-- Action -->
+                <td>
+
+                    <select
+                        onchange="
+                            updateStatus(
+                                '${c._id}',
+                                this.value
+                            )
+                        "
+                    >
+
+                        <option
+                            value="Pending"
+
+                            ${
+                                c.status === "Pending"
+                                ? "selected"
+                                : ""
+                            }
+                        >
+                            Pending
+                        </option>
+
+                        <option
+                            value="In Progress"
+
+                            ${
+                                c.status === "In Progress"
+                                ? "selected"
+                                : ""
+                            }
+                        >
+                            In Progress
+                        </option>
+
+                        <option
+                            value="Resolved"
+
+                            ${
+                                c.status === "Resolved"
+                                ? "selected"
+                                : ""
+                            }
+                        >
+                            Resolved
+                        </option>
+
+                    </select>
+
+                </td>
+
+            </tr>
+            `;
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+}
+
+
+// Update Status
+async function updateStatus(id, status) {
+
+    await fetch(
+        `http://localhost:5000/api/complaints/${id}`,
+        {
+            method: "PUT",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                status
+            })
+        }
+    );
+
+    alert("Status Updated!");
+
+    loadComplaints();
+}
+
+
+// View Complaint Modal
+function viewComplaint(index) {
+
+    const c = window.allComplaints[index];
+
+    document.getElementById("modalTitle")
+        .innerText = c.title;
+
+    document.getElementById("modalCategory")
+        .innerText = c.category;
+
+    document.getElementById("modalStatus")
+        .innerText = c.status;
+
+    document.getElementById("modalDescription")
+        .innerText = c.description;
+
+    // File/Image
+    let imageHTML = "No File Uploaded";
+
+    if (c.file) {
+
+        imageHTML = `
+            <img
+                src="http://localhost:5000/uploads/${c.file}"
+                width="100%"
+                style="
+                    margin-top:15px;
+                    border-radius:10px;
+                "
+            >
+        `;
+    }
+
+    document.getElementById("modalImage")
+        .innerHTML = imageHTML;
+
+    // Show Modal
+    document.getElementById("complaintModal")
+        .style.display = "flex";
+}
+
+
+// Close Modal
+function closeModal() {
+
+    document.getElementById("complaintModal")
+        .style.display = "none";
+}
+
+
+// Load complaints
+document.addEventListener(
+    "DOMContentLoaded",
+    loadComplaints
+);
+
+</script>
+
+<!-- Complaint Modal -->
+
+<div
+    id="complaintModal"
+
+    style="
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.5);
+        justify-content:center;
+        align-items:center;
+        z-index:1000;
+    "
+>
+
+    <div
+        style="
+            background:white;
+            width:500px;
+            padding:25px;
+            border-radius:12px;
+            position:relative;
+        "
+    >
+
+        <!-- Close -->
+        <span
+            onclick="closeModal()"
+
+            style="
+                position:absolute;
+                right:20px;
+                top:10px;
+                cursor:pointer;
+                font-size:22px;
+                font-weight:bold;
+            "
+        >
+            ×
+        </span>
+
+        <h2>Complaint Details</h2>
+
+        <p>
+            <strong>Title:</strong>
+            <span id="modalTitle"></span>
+        </p>
+
+        <p>
+            <strong>Category:</strong>
+            <span id="modalCategory"></span>
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            <span id="modalStatus"></span>
+        </p>
+
+        <p>
+            <strong>Description:</strong>
+        </p>
+
+        <p id="modalDescription"></p>
+
+        <div id="modalImage"></div>
+
+    </div>
+
+</div>
+
+<!-- Auth Check -->
+<script src="auth-check.js"></script>
+
+<script>
+checkAdminAuth();
+</script>
+
+</body>
+</html>

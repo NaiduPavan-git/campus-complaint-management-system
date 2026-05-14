@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:'Poppins',sans-serif;
+            background:#f4f6f9;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .register-box{
+
+            width:380px;
+
+            background:white;
+
+            padding:35px;
+
+            border-radius:15px;
+
+            box-shadow:0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .register-box h2{
+
+            text-align:center;
+
+            margin-bottom:25px;
+
+            color:#1e293b;
+        }
+
+        .register-box input,
+        .register-box select{
+
+            width:100%;
+
+            padding:12px;
+
+            margin:10px 0;
+
+            border-radius:8px;
+
+            border:1px solid #dcdcdc;
+
+            box-sizing:border-box;
+        }
+
+        .register-box button{
+
+            width:100%;
+
+            padding:12px;
+
+            background:#3b82f6;
+
+            color:white;
+
+            border:none;
+
+            border-radius:8px;
+
+            cursor:pointer;
+
+            font-size:16px;
+
+            margin-top:10px;
+        }
+
+        .register-box button:hover{
+
+            background:#2563eb;
+        }
+
+        .login-link{
+
+            text-align:center;
+
+            margin-top:15px;
+        }
+
+        .login-link a{
+
+            color:#3b82f6;
+
+            text-decoration:none;
+
+            font-weight:600;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="register-box">
+
+    <h2>Create Account</h2>
+
+    <!-- Name -->
+    <input type="text" id="name" placeholder="Enter Name">
+
+    <!-- Email -->
+    <input type="email" id="email" placeholder="Enter Email">
+
+    <!-- Password -->
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <input type="hidden" id="role" value="user">
+
+    <!-- Register Button -->
+    <button onclick="registerUser()">
+
+        Register
+
+    </button>
+
+    <div class="login-link">
+
+        Already have account?
+
+        <a href="index.html">Login</a>
+
+    </div>
+
+</div>
+
+<script>
+
+async function registerUser(){
+
+    let name = document.getElementById("name").value;
+
+    let email = document.getElementById("email").value;
+
+    let password = document.getElementById("password").value;
+
+    let role = document.getElementById("role").value;
+
+    // Validation
+    if(!name || !email || !password){
+
+        alert("Please fill all fields");
+
+        return;
+    }
+
+    try{
+
+        const res = await fetch(
+            "http://localhost:5000/api/auth/register",
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    name,
+                    email,
+                    password,
+                    role
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        // Existing user
+        if(data.message === "User already exists"){
+
+            alert("User already exists");
+
+            return;
+        }
+
+        alert("Registration Successful!");
+
+        // Redirect to login
+        window.location.href = "index.html";
+
+    }catch(err){
+
+        console.log(err);
+
+        alert("Server error");
+    }
+}
+
+</script>
+
+</body>
+</html>
