@@ -1,4 +1,3 @@
-const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 
 const router = require("express").Router();
@@ -121,6 +120,7 @@ router.post("/forgot-password", async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
+
             return res.status(404).json({
                 message: "User not found"
             });
@@ -130,65 +130,24 @@ router.post("/forgot-password", async (req, res) => {
         const resetToken = crypto
             .randomBytes(32)
             .toString("hex");
-            user.resetToken = resetToken;
+
+        user.resetToken = resetToken;
 
         user.resetTokenExpire =
             Date.now() + 15 * 60 * 1000;
 
         await user.save();
 
-        // Reset URL
+        // Generate Reset URL
         const resetURL =
             `${process.env.FRONTEND_URL}/reset-password.html?token=${resetToken}`;
 
-        // Email Transport
-        const testAccount =
-            await nodemailer.createTestAccount();
-
-        const transporter =
-            nodemailer.createTransport({
-
-                host: "smtp.ethereal.email",
-
-                port: 587,
-
-                auth: {
-
-                    user: testAccount.user,
-
-                    pass: testAccount.pass
-                }
-            });
-
-        // Send Mail
-        const info = await transporter.sendMail({
-
-            from: testAccount.user,
-
-            to: user.email,
-
-            subject: "Password Reset",
-
-            html: `
-
-                <h2>Password Reset</h2>
-
-                <p>
-                    Click below to reset password:
-                </p>
-
-                <a href="${resetURL}">
-                    Reset Password
-                </a>
-            `
-        });
-
-        console.log(
-            "Preview URL:",
-            nodemailer.getTestMessageUrl(info)
-        );
+        // Return URL directly
         res.json({
-            message: "Reset link sent to email"
+
+            message: "Reset link generated",
+
+            resetURL
         });
 
     } catch (err) {
@@ -196,11 +155,11 @@ router.post("/forgot-password", async (req, res) => {
         console.log(err);
 
         res.status(500).json({
+
             error: err.message
         });
     }
 });
-
 // ================= RESET PASSWORD =================
 router.post("/reset-password/:token", async (req, res) => {
 
