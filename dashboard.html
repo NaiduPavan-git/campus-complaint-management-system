@@ -1,42 +1,156 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Dashboard</title>
+
     <link rel="stylesheet" href="styles.css">
 
     <style>
+
         body {
+
             margin: 0;
+
             font-family: 'Poppins', sans-serif;
+
             background: #f4f6f9;
         }
+
+        .dashboard-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 25px;
+
+            margin-top: 30px;
+        }
+
+        .card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+
+            margin: 0;
+
+            font-size: 42px;
+        }
+
+        .card p {
+
+            margin-top: 10px;
+
+            color: #64748b;
+
+            font-size: 18px;
+        }
+
+        .blue {
+
+            border-left: 6px solid #3b82f6;
+        }
+
+        .orange {
+
+            border-left: 6px solid orange;
+        }
+
+        .green {
+
+            border-left: 6px solid #22c55e;
+        }
+
+        .feedback-card button {
+
+            margin-top: 15px;
+
+            background: #3b82f6;
+
+            border: none;
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .feedback-card button:hover {
+
+            background: #2563eb;
+        }
+
     </style>
+
 </head>
 
 <body>
-    <div class="top-header">
 
-        <h1>
-            Campus Complaint Management System
-        </h1>
+<div class="top-header">
 
-    </div>
+    <h1>
+        Campus Complaint Management System
+    </h1>
+
+    <p class="subtitle">
+        Smart Digital Complaint Portal
+    </p>
+
+</div>
 
 <div class="main">
 
     <!-- Sidebar -->
     <div class="sidebar">
+
         <h2>ComplaintSystem</h2>
+
         <ul>
-            <li class="active">Dashboard</li>
-            <li onclick="goToComplaint()">Submit Complaint</li>
-            <li onclick="goToMyComplaints()">My Complaints</li>
+
+            <li class="active">
+                Dashboard
+            </li>
+
+            <li onclick="goToComplaint()">
+                Submit Complaint
+            </li>
+
+            <li onclick="goToMyComplaints()">
+                My Complaints
+            </li>
+
         </ul>
+
     </div>
 
     <!-- Content -->
     <div class="content">
 
+        <!-- Topbar -->
         <div class="topbar">
 
             Welcome,
@@ -58,48 +172,63 @@
             </button>
 
         </div>
-        <div class="container-box">
 
-            <!-- 🔥 FIXED CARDS -->
-            <div class="cards">
+        <!-- Dashboard Cards -->
+        <div class="dashboard-grid">
 
-                <div class="card blue">
-                    <h2 id="totalCount">0</h2>
-                    <p>Total Complaints</p>
-                </div>
+            <!-- Total -->
+            <div class="card blue">
 
-                <div class="card orange">
-                    <h2 id="pendingCount">0</h2>
-                    <p>Pending</p>
-                </div>
+                <h2 id="totalCount">0</h2>
 
-                <div class="card blue">
-                    <h2 id="progressCount">0</h2>
-                    <p>In Progress</p>
-                </div>
-
-                <div class="card green">
-                    <h2 id="resolvedCount">0</h2>
-                    <p>Resolved</p>
-                </div>
+                <p>Total Complaints</p>
 
             </div>
 
-        </div>
-        <div class="card">
+            <!-- Pending -->
+            <div class="card orange">
 
-            <h3>Feedback</h3>
+                <h2 id="pendingCount">0</h2>
 
-            <p>
-                Share your experience and suggestions
-            </p>
+                <p>Pending</p>
 
-            <button onclick="window.location.href='feedback.html'">
+            </div>
 
-                Give Feedback
+            <!-- Progress -->
+            <div class="card blue">
 
-            </button>
+                <h2 id="progressCount">0</h2>
 
+                <p>In Progress</p>
+
+            </div>
+
+            <!-- Resolved -->
+            <div class="card green">
+
+                <h2 id="resolvedCount">0</h2>
+
+                <p>Resolved</p>
+
+            </div>
+
+            <!-- Feedback -->
+            <div class="card feedback-card">
+
+                <h3>Feedback</h3>
+
+                <p>
+                    Share your experience and suggestions
+                </p>
+
+                <button
+                    onclick="window.location.href='feedback.html'"
+                >
+                    Give Feedback
+                </button>
+
+            </div>
+            <div class="dashboard-grid"></div>
         </div>
 
     </div>
@@ -109,54 +238,95 @@
 <!-- Existing JS -->
 <script src="script.js"></script>
 
-<!-- 🔥 Dashboard Logic -->
+<!-- Dashboard Logic -->
 <script>
+
 async function loadDashboard() {
 
-    const res = await fetch("https://online-complaint-management-system-tul3.onrender.com/api/complaints");
+    const res = await fetch(
+        "https://online-complaint-management-system-tul3.onrender.com/api/complaints"
+    );
+
     const data = await res.json();
 
-    let total = data.length;
-    let pending = data.filter(c => c.status === "Pending").length;
-    let progress = data.filter(c => c.status === "In Progress").length;
-    let resolved = data.filter(c => c.status === "Resolved").length;
+    let total =
+        data.length;
 
-    document.getElementById("totalCount").innerText = total;
-    document.getElementById("pendingCount").innerText = pending;
-    document.getElementById("progressCount").innerText = progress;
-    document.getElementById("resolvedCount").innerText = resolved;
+    let pending =
+        data.filter(
+            c => c.status === "Pending"
+        ).length;
+
+    let progress =
+        data.filter(
+            c => c.status === "In Progress"
+        ).length;
+
+    let resolved =
+        data.filter(
+            c => c.status === "Resolved"
+        ).length;
+
+    document.getElementById(
+        "totalCount"
+    ).innerText = total;
+
+    document.getElementById(
+        "pendingCount"
+    ).innerText = pending;
+
+    document.getElementById(
+        "progressCount"
+    ).innerText = progress;
+
+    document.getElementById(
+        "resolvedCount"
+    ).innerText = resolved;
 }
 
 // Initial load
 loadDashboard();
 
-// Auto refresh every 3 sec
+// Auto refresh
 setInterval(loadDashboard, 3000);
+
 </script>
 
 <script src="auth-check.js"></script>
 
 <script>
+
 checkUserAuth();
+
 </script>
+
 <script>
 
-document.getElementById("username").innerText =
+document.getElementById(
+    "username"
+).innerText =
     localStorage.getItem("name");
 
 function logout() {
 
-    if(confirm("Are you sure you want to logout?")) {
+    if(confirm(
+        "Are you sure you want to logout?"
+    )) {
 
         localStorage.clear();
 
-        window.location.href = "index.html";
+        window.location.href =
+            "index.html";
     }
 }
 
 </script>
+
 <footer class="footer">
+
     © 2026 Campus Complaint Management System
+
 </footer>
+
 </body>
 </html>
