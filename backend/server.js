@@ -1,20 +1,70 @@
+require("dotenv").config();
+
 const express = require("express");
+
 const mongoose = require("mongoose");
+
 const cors = require("cors");
+
+const path = require("path");
 
 const app = express();
 
-app.use(cors());
+
+// ================= MIDDLEWARE =================
+
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
+
 app.use(express.json());
 
-mongoose.connect("mongodb://127.0.0.1:27017/complaintsDB")
-.then(() => console.log("MongoDB Connected"));
-
-app.use("/api/complaints", require("./routes/complaints"));
-app.use("/api/auth", require("./routes/auth"));
-
-app.listen(5000, () => console.log("Server running on 5000"));
-
-app.use("/uploads", express.static("uploads"));
-
 app.use(express.urlencoded({ extended: true }));
+
+
+// ================= STATIC FOLDER =================
+
+app.use(
+    "/uploads",
+    express.static(path.join(__dirname, "uploads"))
+);
+
+
+// ================= ROUTES =================
+
+app.use(
+    "/api/complaints",
+    require("./routes/complaints")
+);
+
+app.use(
+    "/api/auth",
+    require("./routes/auth")
+);
+
+
+// ================= MONGODB CONNECTION =================
+
+mongoose.connect(process.env.MONGO_URI)
+
+.then(() => {
+
+    console.log("MongoDB Connected");
+
+    app.listen(process.env.PORT, () => {
+
+        console.log(
+            `Server running on port ${process.env.PORT}`
+        );
+
+    });
+
+})
+
+.catch(err => {
+
+    console.log(err);
+
+});
