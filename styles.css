@@ -38,7 +38,7 @@ body{
 
 .top-header h1{
 
-    font-size:42px;
+    font-size:34px;
 
     font-weight:bold;
 
@@ -48,9 +48,9 @@ body{
 
 .subtitle{
 
-    margin-top:8px;
+    margin-top:6px;
 
-    font-size:14px;
+    font-size:13px;
 
     color:#dbeafe;
 }
@@ -79,9 +79,9 @@ body{
 
 .sidebar h2{
 
-    margin-bottom:35px;
+    margin-bottom:30px;
 
-    font-size:26px;
+    font-size:20px;
 }
 
 .sidebar ul{
@@ -91,9 +91,9 @@ body{
 
 .sidebar ul li{
 
-    padding:15px;
+    padding:14px;
 
-    margin-bottom:12px;
+    margin-bottom:10px;
 
     border-radius:10px;
 
@@ -101,7 +101,7 @@ body{
 
     transition:0.3s;
 
-    font-size:20px;
+    font-size:16px;
 }
 
 .sidebar ul li:hover,
@@ -123,7 +123,7 @@ body{
 
     background:white;
 
-    padding:20px 25px;
+    padding:18px 22px;
 
     border-radius:14px;
 
@@ -132,11 +132,10 @@ body{
 
     margin-bottom:30px;
 
-    font-size:20px;
+    font-size:18px;
 
     font-weight:bold;
 }
-
 /* DASHBOARD GRID */
 
 .dashboard-grid{
@@ -172,7 +171,7 @@ body{
 
 .card h2{
 
-    font-size:28px;
+    font-size:22px;
 
     margin-bottom:10px;
 }
@@ -181,7 +180,7 @@ body{
 
     color:#64748b;
 
-    font-size:16px;
+    font-size:15px;
 }
 
 /* CARD COLORS */
