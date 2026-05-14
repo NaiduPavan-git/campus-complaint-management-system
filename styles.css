@@ -291,3 +291,15 @@ select:hover {
 .status-pending { color: #f59e0b; font-weight: bold; }
 .status-progress { color: #3b82f6; font-weight: bold; }
 .status-resolved { color: #22c55e; font-weight: bold; }
+.footer{
+
+    text-align:center;
+
+    padding:15px;
+
+    background:#1e293b;
+
+    color:white;
+
+    margin-top:40px;
+}
