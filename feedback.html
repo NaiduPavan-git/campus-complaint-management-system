@@ -119,9 +119,6 @@
 </footer>
 <script>
 
-html
-<script>
-
 function submitFeedback() {
 
     alert("Function Started");
@@ -134,6 +131,8 @@ function submitFeedback() {
 
     const feedback =
         document.getElementById("feedback").value;
+
+    if (!rating || !complaintId || !feedback) { alert("Please fill all fields"); return; }
 
     fetch(
         "https://online-complaint-management-system-tul3.onrender.com/api/feedback",
