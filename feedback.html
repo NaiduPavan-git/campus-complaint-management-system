@@ -122,13 +122,35 @@
 async function submitFeedback() {
 
     const rating =
-        document.getElementById("rating").value;
+        document.getElementById("rating").value.trim();
 
     const complaintId =
-        document.getElementById("complaintId").value;
+        document.getElementById("complaintId").value.trim();
 
     const feedback =
-        document.getElementById("feedback").value;
+        document.getElementById("feedback").value.trim();
+
+    // Validation
+    if (!rating || !complaintId || !feedback) {
+
+        alert("Please fill all fields");
+
+        return;
+    }
+
+    if (rating < 1 || rating > 5) {
+
+        alert("Rating must be between 1 and 5");
+
+        return;
+    }
+
+    const button =
+        document.querySelector("button");
+
+    button.disabled = true;
+
+    button.innerText = "Submitting...";
 
     try {
 
@@ -151,18 +173,43 @@ async function submitFeedback() {
 
         const data = await res.json();
 
+        if (!res.ok) {
+
+            throw new Error(
+                data.message ||
+                data.error ||
+                "Failed to submit feedback"
+            );
+        }
+
         alert(
-            data.message || "Feedback submitted successfully"
+            data.message ||
+            "Feedback submitted successfully"
         );
+
+        document.getElementById("rating").value = "";
+
+        document.getElementById("complaintId").value = "";
+
+        document.getElementById("feedback").value = "";
 
         window.location.href =
             "dashboard.html";
 
     } catch (err) {
 
-        console.log(err);
+        console.error(err);
 
-        alert("Failed to submit feedback");
+        alert(
+            err.message ||
+            "Failed to submit feedback"
+        );
+
+    } finally {
+
+        button.disabled = false;
+
+        button.innerText = "Submit Feedback";
     }
 }
 
