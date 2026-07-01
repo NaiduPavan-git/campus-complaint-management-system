@@ -9,6 +9,18 @@ A **Full-Stack Web Application** developed to simplify complaint registration an
 The **Campus Complaint Management System** replaces the traditional manual complaint process with a centralized digital platform. Students can securely register complaints, upload supporting documents, track complaint progress, and provide feedback. Administrators can review complaints, update their status, and monitor complaint statistics through an analytics dashboard.
 
 ---
+**## Screenshots
+<img width="1898" height="896" alt="Screenshot 2026-07-01 165921" src="https://github.com/user-attachments/assets/f5e5be5b-d681-43f1-ad09-9b1791f0965a" />
+<img width="1898" height="893" alt="Screenshot 2026-07-01 165857" src="https://github.com/user-attachments/assets/1fdfc2af-def4-4a20-aea0-0c6d87c10450" />
+<img width="1900" height="901" alt="Screenshot 2026-07-01 165836" src="https://github.com/user-attachments/assets/fc7ac5f6-83fc-418c-a486-bf4cd284e2d4" />
+<img width="1900" height="898" alt="Screenshot 2026-07-01 165516" src="https://github.com/user-attachments/assets/f6019d91-b48c-4ce7-8e1f-dd7e6be15cbb" />
+<img width="1535" height="897" alt="Screenshot 2026-07-01 165402" src="https://github.com/user-attachments/assets/c243c5c0-49ff-446c-9fae-a8eef4538165" />
+<img width="1898" height="887" alt="Screenshot 2026-07-01 165245" src="https://github.com/user-attachments/assets/e4a9f53a-39c4-48ec-aac4-66fade83841a" />
+<img width="1902" height="892" alt="Screenshot 2026-07-01 165225" src="https://github.com/user-attachments/assets/4f0dd4b8-7c6f-4970-8343-daea549649cc" />
+<img width="1918" height="966" alt="Screenshot 2026-07-01 165158" src="https://github.com/user-attachments/assets/5bd3b17e-b7a0-4e8f-a3e5-37b40932c4b2" />
+<img width="1811" height="997" alt="Screenshot 2026-07-01 165131" src="https://github.com/user-attachments/assets/77f101ab-a4f3-453c-9fb6-c7ee31e99e0e" />
+<img width="1918" height="965" alt="Screenshot 2026-07-01 165031" src="https://github.com/user-attachments/assets/a43043c3-f1b0-458d-a9e3-df551fd8c26a" />
+
 
 ## 🚀 Features
 
