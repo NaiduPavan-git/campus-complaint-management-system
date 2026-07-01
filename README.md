@@ -3,13 +3,24 @@
 A **Full-Stack Web Application** developed to simplify complaint registration and management within educational institutions. The system enables students to submit complaints online, track their complaint status in real time, and allows administrators to efficiently manage, update, and resolve complaints through a dedicated dashboard.
 
 ---
-
+**Live Demo:** 
+https://campus-complaint-system.netlify.app
+**Technology Badges**
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=jsonwebtokens)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)
 ## 📖 Project Overview
 
 The **Campus Complaint Management System** replaces the traditional manual complaint process with a centralized digital platform. Students can securely register complaints, upload supporting documents, track complaint progress, and provide feedback. Administrators can review complaints, update their status, and monitor complaint statistics through an analytics dashboard.
 
 ---
-**## Screenshots
+**Screenshots**
 <img width="1918" height="965" alt="Screenshot 2026-07-01 165031" src="https://github.com/user-attachments/assets/d276f7a7-3c72-4bba-9069-10a7a7945a02" />
 <img width="1811" height="997" alt="Screenshot 2026-07-01 165131" src="https://github.com/user-attachments/assets/25413387-afee-4add-afdc-49ea55fcea18" />
 <img width="1918" height="966" alt="Screenshot 2026-07-01 165158" src="https://github.com/user-attachments/assets/ac3c9ba3-3b7b-489a-a2c3-d4f614e314ba" />
