@@ -10,16 +10,17 @@ The **Campus Complaint Management System** replaces the traditional manual compl
 
 ---
 **## Screenshots
-<img width="1898" height="896" alt="Screenshot 2026-07-01 165921" src="https://github.com/user-attachments/assets/f5e5be5b-d681-43f1-ad09-9b1791f0965a" />
-<img width="1898" height="893" alt="Screenshot 2026-07-01 165857" src="https://github.com/user-attachments/assets/1fdfc2af-def4-4a20-aea0-0c6d87c10450" />
-<img width="1900" height="901" alt="Screenshot 2026-07-01 165836" src="https://github.com/user-attachments/assets/fc7ac5f6-83fc-418c-a486-bf4cd284e2d4" />
-<img width="1900" height="898" alt="Screenshot 2026-07-01 165516" src="https://github.com/user-attachments/assets/f6019d91-b48c-4ce7-8e1f-dd7e6be15cbb" />
-<img width="1535" height="897" alt="Screenshot 2026-07-01 165402" src="https://github.com/user-attachments/assets/c243c5c0-49ff-446c-9fae-a8eef4538165" />
-<img width="1898" height="887" alt="Screenshot 2026-07-01 165245" src="https://github.com/user-attachments/assets/e4a9f53a-39c4-48ec-aac4-66fade83841a" />
-<img width="1902" height="892" alt="Screenshot 2026-07-01 165225" src="https://github.com/user-attachments/assets/4f0dd4b8-7c6f-4970-8343-daea549649cc" />
-<img width="1918" height="966" alt="Screenshot 2026-07-01 165158" src="https://github.com/user-attachments/assets/5bd3b17e-b7a0-4e8f-a3e5-37b40932c4b2" />
-<img width="1811" height="997" alt="Screenshot 2026-07-01 165131" src="https://github.com/user-attachments/assets/77f101ab-a4f3-453c-9fb6-c7ee31e99e0e" />
-<img width="1918" height="965" alt="Screenshot 2026-07-01 165031" src="https://github.com/user-attachments/assets/a43043c3-f1b0-458d-a9e3-df551fd8c26a" />
+<img width="1918" height="965" alt="Screenshot 2026-07-01 165031" src="https://github.com/user-attachments/assets/d276f7a7-3c72-4bba-9069-10a7a7945a02" />
+<img width="1811" height="997" alt="Screenshot 2026-07-01 165131" src="https://github.com/user-attachments/assets/25413387-afee-4add-afdc-49ea55fcea18" />
+<img width="1918" height="966" alt="Screenshot 2026-07-01 165158" src="https://github.com/user-attachments/assets/ac3c9ba3-3b7b-489a-a2c3-d4f614e314ba" />
+<img width="1902" height="892" alt="Screenshot 2026-07-01 165225" src="https://github.com/user-attachments/assets/6d4e2d0d-70b1-4877-a1f2-67062d020475" />
+<img width="1898" height="887" alt="Screenshot 2026-07-01 165245" src="https://github.com/user-attachments/assets/9f292942-bf55-4ea5-9bd5-3427d272b0b0" />
+<img width="1535" height="897" alt="Screenshot 2026-07-01 165402" src="https://github.com/user-attachments/assets/60900faa-bef4-41c6-8c48-23ba32df46cc" />
+<img width="1900" height="898" alt="Screenshot 2026-07-01 165516" src="https://github.com/user-attachments/assets/c8bf869f-87e9-4fe9-8e66-2b07ea8e07b9" />
+<img width="1900" height="901" alt="Screenshot 2026-07-01 165836" src="https://github.com/user-attachments/assets/4f64c002-4404-4b4b-b499-4b5a3f8e777e" />
+<img width="1898" height="893" alt="Screenshot 2026-07-01 165857" src="https://github.com/user-attachments/assets/c37c43d7-0eec-4733-bf3c-4f6da10d5e59" />
+<img width="1898" height="896" alt="Screenshot 2026-07-01 165921" src="https://github.com/user-attachments/assets/31fbbc62-591b-416c-a8c9-5d8335d4d58e" />
+
 
 
 ## 🚀 Features
